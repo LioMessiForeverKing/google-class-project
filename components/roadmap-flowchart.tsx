@@ -18,7 +18,6 @@ import ReactFlow, {
 import { ChevronDown, ChevronUp, ZoomIn, ZoomOut, RefreshCw } from "lucide-react"
 import "reactflow/dist/style.css"
 import QuizModal from "./quiz-modal"
-import TopicSummaryModal from "./topic-summary-modal"
 
 // Define the topic structure
 interface Topic {
@@ -77,7 +76,6 @@ const ChapterNode = ({ data }: NodeProps) => {
 const SectionNode = ({ data }: NodeProps) => {
   const [expanded, setExpanded] = useState(false)
   const [showQuiz, setShowQuiz] = useState(false)
-  const [showSummary, setShowSummary] = useState(false)
 
   return (
     <div
@@ -101,13 +99,7 @@ const SectionNode = ({ data }: NodeProps) => {
       {expanded && data.description && (
         <div className="text-xs mt-1 text-slate-600 border-t border-slate-100 pt-2">{data.description}</div>
       )}
-      <div className="flex justify-center gap-2 mt-2">
-        <button
-          onClick={() => setShowSummary(true)}
-          className="text-xs px-3 py-1 bg-indigo-50 text-indigo-600 rounded-full hover:bg-indigo-100 transition-colors"
-        >
-          View Summary
-        </button>
+      <div className="flex justify-center mt-2">
         <button
           onClick={() => setShowQuiz(true)}
           className="text-xs px-3 py-1 bg-indigo-50 text-indigo-600 rounded-full hover:bg-indigo-100 transition-colors"
@@ -134,15 +126,6 @@ const SectionNode = ({ data }: NodeProps) => {
             }
             setShowQuiz(false)
           }}
-        />
-      )}
-      {showSummary && (
-        <TopicSummaryModal
-          topicName={data.label}
-          isOpen={showSummary}
-          onClose={() => setShowSummary(false)}
-          className={data.className}
-          topicId={data.id}
         />
       )}
     </div>
